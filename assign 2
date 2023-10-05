@@ -1,0 +1,98 @@
+#include <iostream>
+using namespace std;
+#include "world.h"
+#include "robot.h"
+#include "point.h"
+
+
+  
+int main(int argc, char** argv)
+{
+// first part; getting coin locations
+  for (int i = 1; i<argc; i++)
+  {
+    
+    if( atoi(argv[i])>9 || atoi(argv[i])<0)
+    {
+      cout<<"Values have to be between 0-9";
+      return 1;
+    }
+    
+  }
+  
+  if(argc !=7)
+  {
+    cout<<"You have to enter 6 values"<<endl;
+    return 1;
+  }
+
+
+  
+  int point[argc-1];
+  
+  int const NumPoint = 3;  
+  World coin[NumPoint];
+
+
+  cout << "Values you entered: \n";
+  
+    for (int i = 1; i < argc; ++i)
+    {
+      cout << atoi(argv[i]) <<" p"<< "\n";
+    }
+
+  
+    for (int i = 1; i < argc; ++i)
+    { 
+      point[i-1] = atoi(argv[i]);
+    }
+
+    cout<< "Succesfully transfered to the new array"<< endl; //testing 
+
+  
+    for(int i = 1; i < argc; i++) //print the test
+    {
+      cout<< point[i-1]<<" point"<<endl;
+    }
+
+  for (int i =0; i < NumPoint; i++ )
+  {
+    int x = point[2*i];
+    int y = point[2*i+1];
+    coin[i].set(i,x,y);
+  }
+
+
+  for (int i = 0; i < NumPoint; i++) {
+    coin[i].print(i);
+  }
+
+  cout<<endl;
+
+// Second part: robot moving
+
+  Robot robot;
+  robot.init();
+
+    for (int i = 0; i < 10; i++) {
+      for (int j = 0; j < 10; j++) {
+        robot.print();
+        robot.forward();
+      }
+
+    }
+
+  return 0;
+}
+
+
+
+
+
+
+
+/*
+g++ -c main.cpp
+g++ -o main.exe main.o world.h
+./main.exe 1 2 3 4 5 6 
+*/
